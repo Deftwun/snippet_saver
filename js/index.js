@@ -135,24 +135,20 @@ function refreshSnippetsList(){
 
 //Load snippets from storage
 function loadSnippets(){
-	chrome.storage.sync.get("snippetSave",function(snippetSave){
-		if (snippetSave == undefined) return;
-		console.log(snippetSave);
-		snippets = JSON.parse(snippetSave.snippets);
-		var notes = JSON.parse(snippetSave.notes);
-		$("#notepad textarea").val(notes);
+	chrome.storage.sync.get(function(item){
+		console.log("LOAD",item);
+		snippets = item.snippets || {};
+		$("#notepad textarea").val(item.notes || "This is a notepad!");
 		refreshSnippetsList();
 	});
-
-
+	
 }
 
 //Save snippets to storage
 function saveSnippets(){
-  var snippetsStr = JSON.stringify(snippets),
-      notesStr = JSON.stringify($("#notepad textarea").val()),
-      snippetSave = JSON.stringify({snippets:snippetsStr,notes:notesStr});
-  chrome.storage.sync.set({'snippetSave':snippetSave});
+	var storageObject = {'snippets':snippets,'notes':$("#notepad textarea").val()};
+	console.log("SAVE",storageObject);
+  chrome.storage.sync.set(storageObject);
 }
 
 $(document).ready(function(){
@@ -172,14 +168,7 @@ $(document).ready(function(){
   loadSnippets();
   refreshSnippetsList();
   
-  //Snippet name click event
-  $(document).on("click",".snippet",function(){
-    $('.snippet').removeClass("selected");
-    $(this).addClass("selected");
-    selectedSnippet = $(this).text();
-    displayCurrentSnippet();
-  });
-  
+  //CLICK EVENTS
   $("#settings-close").click(hideSettings);
   $("#settings-apply").click(applySettings);
   $("#new").click(function(){createNewSnippet("untitled")});
@@ -192,8 +181,17 @@ $(document).ready(function(){
   $("#filter").change(filterList);
   $("#snippet-header").focus(function(){$('#snippet-header').select()});
   $("#snippet-header").blur(updateSnippetName);
-  $("#snippet-header").mouseup(function(){return false;});
+  $("#snippet-header").mouseup(function(){return false;});	
+	
+	//Snippet name click event
+  $(document).on("click",".snippet",function(){
+    $('.snippet').removeClass("selected");
+    $(this).addClass("selected");
+    selectedSnippet = $(this).text();
+    displayCurrentSnippet();
+  });
   
+
   
   //Keep panel margins where they should be on window resize
   $(window).resize(function(){

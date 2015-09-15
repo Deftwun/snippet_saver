@@ -21,6 +21,23 @@ html, body, #container{
 .cell{
   flex:1;
 }
+#header{
+	background-color:blue;
+}
+#header-title{
+
+	float:left;
+	text-align:center;
+}
+#header-buttons{
+	float:right;
+}
+#header-buttons button{
+	width:32px;
+	height:32px;
+	float:right;
+}
+
 #button-container{
   margin:auto;
   width:95%;
