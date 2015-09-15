@@ -260,33 +260,33 @@
         </table>
 
         <!--Settings buttons-->
-        <button id="settings-close" onclick="hideSettings();">OK</button>
-        <button id="settings-close" onclick="applySettings();">Apply</button></div>
+        <button id="settings-close">OK</button>
+        <button id="settings-apply">Apply</button></div>
       
     <!--Snippets Menu-->
     <div id="snippets-menu" class="column">
       <!--Buttons-->
       <div id="button-container" class="row">
         <!--New Snippet button-->
-        <button id="new" title="New Snippet" class="cell" onclick="createNewSnippet('untitled')"><i class="fa fa-2x fa-plus"></i></button>
+        <button id="new" title="New Snippet" class="cell"><i class="fa fa-2x fa-plus"></i></button>
 
 
         <!--Delete / Settings buttons-->
         <div class="cell column">
-          <button id="delete" title="Delete Selected Snippet" onclick="deleteCurrentSnippet();" class="cell"><i class="fa fa-2x fa-trash-o"></i></button>
-          <button id="options" title="Settings" onclick="showSettings();" class="cell"><i class="fa fa-cogs fa-2x"></i></button>
+          <button id="delete" title="Delete Selected Snippet" class="cell"><i class="fa fa-2x fa-trash-o"></i></button>
+          <button id="options" title="Settings" class="cell"><i class="fa fa-cogs fa-2x"></i></button>
         </div>
 
         <!--Save / Load Buttons-->
         <div class="cell column">
-          <button id="save" title="Save all snippets to localStorage" onclick="saveSnippets();"><i class="cell fa fa-2x fa-cloud-upload"></i></button>
-          <button id="load" title="Load snippets from localStorage" onclick="loadSnippets();"><i class="cell fa fa-2x fa-download"></i></button>
+          <button id="save" title="Save all snippets to localStorage"><i class="cell fa fa-2x fa-cloud-upload"></i></button>
+          <button id="load" title="Load snippets from localStorage"><i class="cell fa fa-2x fa-download"></i></button>
         </div>
         <!-- End Buttons Menu -->
       </div>
 
       <!--Search-->
-      <input type="text" id="filter" title="Display only those snippets whose body or title contains the search string" class="row" onchange="filterList()" placeholder="Search">
+      <input type="text" id="filter" title="Display only those snippets whose body or title contains the search string" class="row" placeholder="Search">
 
       <!--Snippet List-->
       <div id="snippet-list" class="cell" ></div>
@@ -295,13 +295,13 @@
   </div>
   
   <!--Menu Toggle Button-->
-  <div id="toggle-menu" onclick="toggleMenu();" class="column toggle"><i class="fa fa-2x fa-arrow-circle-left"></i></div>
+  <div id="toggle-menu" class="column toggle"><i class="fa fa-2x fa-arrow-circle-left"></i></div>
   
   <!--Code Editor-->
   <div id="editor-container" class="cell column">
 
     <!--Snippet Name / Header -->
-    <input type="text" class="cell" id="snippet-header"  onfocus="this.select();" onblur="updateSnippetName();" onmouseup="return false;">
+    <input type="text" class="cell" id="snippet-header">
 
     <!--Ace Code Editor-->
     <div id="snippet-editor" class="cell"></div>
@@ -309,7 +309,7 @@
   </div>
   
   <!--Notepad Toggle Button-->
-  <div id="toggle-notepad" class="toggle column" onclick="toggleNotepad();">
+  <div id="toggle-notepad" class="toggle column">
     <i class="fa fa-2x fa-arrow-circle-left"></i>
   </div>
   

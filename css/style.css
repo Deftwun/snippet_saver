@@ -1,6 +1,6 @@
 @font-face { font-family: 'Open Sans'; src: url('font/OpenSans-Regular.ttf'); } 
-@font-face { font-family: 'Open Sans'; font-weight: bold; src: url('OpenSans-Bold.ttf');}
-@font-face { font-family: 'Open Sans'; font-style: italic; src: url('OpenSans-Italic.ttf');}
+@font-face { font-family: 'Open Sans'; font-weight: bold; src: url('font/OpenSans-Bold.ttf');}
+@font-face { font-family: 'Open Sans'; font-style: italic; src: url('font/OpenSans-Italic.ttf');}
 
 html, body, #container{
   height:100%;
@@ -107,7 +107,7 @@ html, body, #container{
   margin:auto;
 }
 #filter{
-  width:92%;
+  width:88%;
   margin:5px;
   height:20px;
   padding:5px 5px 5px 5px;

@@ -10,8 +10,10 @@ var snippets = {};
 //@name if the name already exists, a unique integer will be appended
 //@content can be undefined
 function createNewSnippet(name,content){
+  name = name || 'untitled';
   var suffix = 1,
       unique = name;
+	  console.log(name);
   while(Object.keys(snippets).indexOf(unique) > -1){
     unique = name + "_" + suffix++;
   }  
@@ -177,6 +179,21 @@ $(document).ready(function(){
     selectedSnippet = $(this).text();
     displayCurrentSnippet();
   });
+  
+  $("#settings-close").click(hideSettings);
+  $("#settings-apply").click(applySettings);
+  $("#new").click(function(){createNewSnippet("untitled")});
+  $("#delete").click(deleteCurrentSnippet);
+  $("#options").click(showSettings);
+  $("#save").click(saveSnippets);
+  $("#load").click(loadSnippets);
+  $("#toggle-menu").click(toggleMenu);
+  $("#toggle-notepad").click(toggleNotepad);
+  $("#filter").change(filterList);
+  $("#snippet-header").focus(function(){$('#snippet-header').select()});
+  $("#snippet-header").blur(updateSnippetName);
+  $("#snippet-header").mouseup(function(){return false;});
+  
   
   //Keep panel margins where they should be on window resize
   $(window).resize(function(){
