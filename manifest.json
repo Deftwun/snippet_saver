@@ -3,6 +3,9 @@
   "description": "Save your code snippets across devices with Google Drive!",
   "version": "0.1",
   "manifest_version": 2,
+  "permissions":[
+	"storage"
+  ],
   "app": {
     "background": {
       "scripts": ["background.js"]

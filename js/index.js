@@ -133,11 +133,16 @@ function refreshSnippetsList(){
 
 //Load snippets from storage
 function loadSnippets(){
-  var snippetSave = JSON.parse(localStorage.getItem("snippetSave"));
-  snippets = JSON.parse(snippetSave.snippets);
-  var notes = JSON.parse(snippetSave.notes);
-  $("#notepad textarea").val(notes);
-  refreshSnippetsList();
+	chrome.storage.sync.get("snippetSave",function(snippetSave){
+		if (snippetSave == undefined) return;
+		console.log(snippetSave);
+		snippets = JSON.parse(snippetSave.snippets);
+		var notes = JSON.parse(snippetSave.notes);
+		$("#notepad textarea").val(notes);
+		refreshSnippetsList();
+	});
+
+
 }
 
 //Save snippets to storage
@@ -145,7 +150,7 @@ function saveSnippets(){
   var snippetsStr = JSON.stringify(snippets),
       notesStr = JSON.stringify($("#notepad textarea").val()),
       snippetSave = JSON.stringify({snippets:snippetsStr,notes:notesStr});
-  localStorage.setItem('snippetSave',snippetSave);
+  chrome.storage.sync.set({'snippetSave':snippetSave});
 }
 
 $(document).ready(function(){
