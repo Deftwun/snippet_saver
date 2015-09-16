@@ -21,6 +21,7 @@ function createNewSnippet(name,content){
   snippets[unique] = content || "'Hello World!'";
   selectedSnippet = unique;
   refreshSnippetsList();
+	$("#snippet-header").select();
 }
 
 //Updates the snippet name to whatever is in the snippet header
@@ -155,14 +156,37 @@ function loadSnippets(){
 		console.log("LOAD",item);
 		snippets = item.snippets || {};
 		$("#notepad textarea").val(item.notes || "This is a notepad!");
+		if (item.settings){
+			$("#theme").val(item.settings.theme);
+			$("#show_gutter").attr('checked',item.settings.showGutter);
+			$("#display_print_margin").attr('checked',item.settings.showPrintMargin);
+			$("#fontsize").val(item.settings.fontSize);
+		}
+		applySettings();
 		refreshSnippetsList();
 	});
+	
+	/*
+	editor.setTheme($("#theme").val());
+  editor.getSession().setMode($("#mode").val());
+  editor.renderer.setShowGutter($("#show_gutter").is(":checked"));
+  editor.renderer.setShowPrintMargin($("#display_print_margin").is(":checked"));
+  $("#snippet-editor").css('font-size',$("#fontsize").val());
+	*/
 	
 }
 
 //Save snippets to storage
 function saveSnippets(){
-	var storageObject = {'snippets':snippets,'notes':$("#notepad textarea").val()};
+	var settingsObject = {'theme':$("#theme").val(),
+												'mode':$("#mode").val(),
+												'showGutter':$("#show_gutter").is(":checked"),
+												'showPrintMargin':$("#display_print_margin").is(":checked"),
+												'fontSize':$("#fontsize").val()};
+												
+	var storageObject = {'snippets':snippets,
+	                     'notes':$("#notepad textarea").val(),
+											 'settings':settingsObject};
 	console.log("SAVE",storageObject);
   chrome.storage.sync.set(storageObject);
 }

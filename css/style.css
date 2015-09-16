@@ -26,8 +26,10 @@ html, body, #container{
   flex:1;
 }
 #header{
+	
 	background:linear-gradient(#444,#555555,#333);
 	height:25px;
+	border-bottom:3px solid black;
 	-webkit-app-region: drag;
 }
 .rotate-45{
@@ -35,18 +37,20 @@ html, body, #container{
 }
 
 #header-title{
-	float:left;
+	padding-left:20px;
+	color:white;
+	font-size:1.25em;
+	font-weight:bold;
 	text-align:center;
+	vertical-align:middle;
 }
 #header-buttons{
-	float:right;
 	width:100px;
 	height:100%;
 	-webkit-app-region: no-drag;
 }
 #header-buttons button{
 	float:right;
-	
 }
 
 #button-container{
@@ -77,8 +81,7 @@ html, body, #container{
   transform:scale(1.05);
 }
 #snippet-list{
-
-  overflow-y:scroll;
+  overflow-y:auto;
   margin-top:5px;
 	margin-bottom:32px;
   border-top:5px solid #262626;
@@ -121,7 +124,7 @@ html, body, #container{
   margin:auto;
 }
 #snippet-header{
-  font-size:1.25em;
+  font-size:1.5em;
   font-weight:bold;
   text-align:center;
   max-height:25px;
