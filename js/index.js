@@ -1,7 +1,8 @@
 var selectedSnippet ="", 
     editor, 
     menuCollapsed = false, 
-    notepadCollapsed= true;
+    notepadCollapsed= true,
+		pinned = false;
 
 //Snippets Container
 var snippets = {};
@@ -60,7 +61,8 @@ function toggleMenu(){
   var leftPane = $("#menu-container"),
       margin = parseInt(leftPane.css("margin-left")),
       width = parseInt(leftPane.css("width")),
-      newMargin= margin < 0 ? 0 : -width;
+			borderWidth = parseInt(leftPane.css("border-left-width")),
+      newMargin= margin < 0 ? 0 : (-width - borderWidth);
   $("#menu-container").animate({'margin-left':newMargin});
   var button = $("#toggle-menu i")
   if (menuCollapsed) {button.removeClass("fa-arrow-circle-left");
@@ -75,7 +77,8 @@ function toggleNotepad(){
   var pane = $("#notepad"),
       margin = parseInt(pane.css("margin-right")),
       width = parseInt(pane.css("width")),
-      newMargin= margin < 0 ? 0 : -width;
+			borderWidth = parseInt(pane.css("border-right-width")),
+      newMargin= margin < 0 ? 0 : (-width-borderWidth);
   $("#notepad").animate({'margin-right':newMargin});
   var button = $("#toggle-notepad i");
   if (notepadCollapsed) {button.removeClass("fa-arrow-circle-right");
@@ -133,6 +136,19 @@ function refreshSnippetsList(){
   displayCurrentSnippet();
 }
 
+function togglePinned(){
+	pinned = !pinned;
+	if (pinned){
+		$("#pin i").removeClass("rotate-45")
+		$("#pin i").addClass("fa-2x");
+	}
+	else {
+		$("#pin i").addClass("rotate-45");
+		$("#pin i").removeClass("fa-2x");
+	}
+	chrome.app.window.current().setAlwaysOnTop(pinned);
+}
+
 //Load snippets from storage
 function loadSnippets(){
 	chrome.storage.sync.get(function(item){
@@ -182,6 +198,9 @@ $(document).ready(function(){
   $("#snippet-header").focus(function(){$('#snippet-header').select()});
   $("#snippet-header").blur(updateSnippetName);
   $("#snippet-header").mouseup(function(){return false;});	
+	$("#pin").click(function(){console.log("clicked");togglePinned();});
+	$("#close").click(function(){saveSnippets(); window.close()});
+	$("#minimize").click(function(){chrome.app.window.current().minimize()});
 	
 	//Snippet name click event
   $(document).on("click",".snippet",function(){
@@ -191,11 +210,9 @@ $(document).ready(function(){
     displayCurrentSnippet();
   });
   
-
-  
   //Keep panel margins where they should be on window resize
   $(window).resize(function(){
-    var setMarginNote = notepadCollapsed ? parseInt($("#notepad").css('width')) *-1 : 0,
+    var setMarginNote = notepadCollapsed ? parseInt($("#notepad").css('width'))*-1 : 0,
         setMarginMenu = menuCollapsed ? parseInt($("#menu-container").css('width'))*-1 : 0;   
     $("#notepad").css({'margin-right':setMarginNote});
     $("#menu-container").css({'margin-left':setMarginMenu});
