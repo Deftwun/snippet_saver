@@ -101,7 +101,7 @@ body {
 
 /* Settings */
 #settings-menu{
-  overflow-y:scroll;
+  overflow:auto;
   height:100%;
 }
 
