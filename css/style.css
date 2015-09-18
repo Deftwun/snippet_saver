@@ -174,7 +174,7 @@ body {
 /*Compensate for height of main header & editor header*/
 #snippet-editor{
   /* Lots of pixel tweaking going on. Not good */
-  margin-bottom: 33px;
+  margin-bottom: 35px;
 }
 #snippet-header{
   font-size:1.5em;
